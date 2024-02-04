@@ -29,14 +29,14 @@ To use Govert, follow these steps:
 To convert a Markdown file to HTML using Govert, run the binary with the input and output file paths as arguments:
 
 ```bash
-./govert input.md output.html
+./bin/govert input.md output.html
 ```
 
 If you don't specify an output path, the output will be written to "output.html" by default.
 
 
 ```bash
-./govert input.md
+./bin/govert input.md
 ```
 
 ## Contributing
