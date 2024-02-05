@@ -1,6 +1,6 @@
 # Govert
 
-Govert is a Command Line Interface (CLI) application for converting Markdown to HTML.
+Govert is a Command Line Interface (CLI) application for converting Markdown to HTML with Concurrent Batch Conversion and Live Preview.
 
 ## Installation
 
