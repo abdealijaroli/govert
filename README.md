@@ -39,6 +39,16 @@ If you don't specify an output path, the output will be written to "output.html"
 ./bin/govert input.md
 ```
 
+To convert a directory of Markdown files to HTML using Govert, run the binary with the input and output directory paths as arguments:
+
+
+```bash 
+./bin/govert -d path/to/input-directory
+```
+
+You don't need to specify an output directory, the output will be written to "outputDir" by default.
+
+
 ## Contributing
 
 Contributions are welcome! To contribute to Govert, follow these steps:
