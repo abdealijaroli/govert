@@ -2,10 +2,13 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/abdealijaroli/govert/pkg/converter"
 	"github.com/spf13/cobra"
 )
+
+var directoryFlag bool
 
 var rootCmd = &cobra.Command{
 	Use:   "govert",
@@ -24,6 +27,31 @@ var rootCmd = &cobra.Command{
 			outputFile = args[1]
 		}
 
+		if directoryFlag {
+			var inputDirectory, outputDirectory string
+
+			if len(args) == 1 {
+				inputDirectory = args[0]
+				outputDirectory = "outputDir"
+
+				if _, err := os.Stat(outputDirectory); os.IsNotExist(err) {
+					if err := os.Mkdir(outputDirectory, 0755); err != nil {
+						log.Fatalf("Error creating output directory: %v", err)
+					}
+				}
+			} else {
+				inputDirectory = args[0]
+				outputDirectory = args[1]
+			}
+
+			err := converter.ConvertMarkdownToHTMLDirectory(inputDirectory, outputDirectory)
+			if err != nil {
+				log.Fatalf("Error converting Markdown to HTML: %v", err)
+			}
+			log.Printf("Directory %s converted to %s\n", inputDirectory, outputDirectory)
+			return
+		}
+
 		err := converter.ConvertMarkdownToHTML(inputFile, outputFile)
 		if err != nil {
 			log.Fatalf("Error converting Markdown to HTML: %v", err)
@@ -31,6 +59,10 @@ var rootCmd = &cobra.Command{
 
 		log.Printf("File %s converted to %s\n", inputFile, outputFile)
 	},
+}
+
+func init() {
+	rootCmd.Flags().BoolVarP(&directoryFlag, "directory", "d", false, "Convert a directory of Markdown files to HTML")
 }
 
 func Execute() {
